@@ -1,0 +1,45 @@
+
+the code will incoperate counting number of coins from an image provided
+
+OpenCV provides methods to find “curves” in an image,
+called contours. A contour is a curve of points, with no
+gaps in the curve. Contours are extremely useful for such
+things as shape approximation and analysis.
+
+
+In order to find contours in an image, you need to first obtain
+a binarization of the image, using either edge detection
+methods or thresholding. In the examples below, we’ll use
+the Canny edge detector to find the outlines of the coins,
+and then find the actual contours of the coins
+
+
+The first argument to cv2.findContours is our edged image.
+It’s important to note that this function is destructive
+to the image you pass in. If you intend using that image
+later on in your code, it’s best to make a copy of it, using
+
+The second argument is the type of contours we want.
+We use cv2.RETR_EXTERNAL to retrieve only the outermost
+contours (i.e., the contours that follow the outline of the
+coin). We can also pass in cv2.RETR_LIST to grab all contours.
+Other methods include hierarchical contours using
+cv2.RETR_COMP and cv2.RETR_TREE, but hierarchical contours
+are outside the scope of this book.
+
+Our last argument is how we want to approximate the
+contour. We use cv2.CHAIN_APPROX_SIMPLE to compress
+horizontal, vertical, and diagonal segments into their endpoints
+only. This saves both computation and memory. If
+we wanted all the points along the contour, without compression,
+we can pass in cv2.CHAIN_APPROX_NONE; however,
+be very sparing when using this function. Retrieving all
+points along a contour is often unnecessary and is wasteful
+of resources.
+
+Our contours cnts is simply a Python list. We can use
+the len function on it to count the number of contours that
+were returned. We do this on Line 20 to show how many
+contours we have found
+
+
